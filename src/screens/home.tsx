@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 import {
   default as profileImage,
@@ -17,11 +18,29 @@ import {
 } from "@/components/ui/carousel";
 import { Separator } from "@/components/ui/separator";
 
+const skills = [
+  { name: "React", icon: "⚛️" },
+  { name: "Tailwind CSS", icon: "🎨" },
+  { name: "JavaScript", icon: "💻" },
+  { name: "HTML5 & CSS3", icon: "🌐" },
+  { name: "TypeScript", icon: "📘" },
+  { name: "API Integration", icon: "🔌" },
+];
+
+const containerVariants = {
+  hidden: { opacity: 0, scale: 0.8 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: { delay: 0.3, duration: 0.5 },
+  },
+};
+
 const Home = () => {
   return (
     <main className="flex flex-col items-center">
       {/* Header */}
-      <header className=" w-full py-4 px-6 shadow-md flex items-center justify-between absolute  text-white">
+      <header className=" w-full py-4 px-6 shadow-md flex items-center justify-between ">
         <div className="text-xl font-bold">TechTailwind</div>
         <nav className="flex space-x-4">
           <a
@@ -44,46 +63,8 @@ const Home = () => {
           </a>
         </nav>
       </header>
-
-      {/* Section About Tailwind CSS and React */}
-      <section
-        id="about"
-        className="w-full bg-gray-100 p-10 text-center flex h-screen  items-center justify-center bg-secondary-foreground"
-      >
-        <div className="flex flex-col md:flex-row items-center justify-between max-w-6xl mx-auto">
-          <div className="w-full md:w-1/2 flex justify-center">
-            <img
-              src={profileImage}
-              alt="Illustration"
-              className="w-[300px] md:w-[400px] object-contain"
-            />
-          </div>
-
-          <div className="w-full md:w-1/2 flex flex-col items-start md:items-start text-left mt-8 md:mt-0">
-            <div className="text-green-300 text-lg font-bold">About me</div>
-            <h1 className="text-3xl md:text-4xl font-bold text-white mt-4">
-              I’m a passionate software developer looking for my first
-              international opportunity
-            </h1>
-            <p className="text-gray-400 mt-4">
-              Beyond coding, I'm a coffee enthusiast, a cat lover, and a
-              self-taught artist who enjoys spending my free time doodling. I am
-              currently seeking opportunities to bring my skills and enthusiasm
-              to a tech company in the United States or Europe and am excited
-              about the prospect of relocating to pursue new challenges.
-            </p>
-
-            <a
-              href="/resume"
-              className="inline-block bg-purple-500 text-white py-2 px-4 rounded mt-6 hover:bg-purple-600 transition-colors"
-            >
-              My resume
-            </a>
-          </div>
-        </div>
-      </section>
       {/* Main Section with Carousel */}
-      <section className="flex-grow  flex items-center justify-center h-screen bg-secondary w-full">
+      <section className="flex-grow  flex items-center justify-center h-screen bg-white w-full">
         <Carousel className="w-full max-w-5xl ">
           <CarouselContent>
             {/* Carousel Item 1 */}
@@ -167,11 +148,48 @@ const Home = () => {
           </div>
         </Carousel>
       </section>
+      {/* Section About Tailwind CSS and React */}
+      <section
+        id="about"
+        className="w-full bg-gray-100 p-10 text-center flex h-screen  items-center justify-center bg-secondary-foreground"
+      >
+        <div className="flex flex-col md:flex-row items-center justify-between max-w-6xl mx-auto">
+          <div className="w-full md:w-1/2 flex justify-center">
+            <img
+              src={profileImage}
+              alt="Illustration"
+              className="w-[300px] md:w-[400px] object-contain"
+            />
+          </div>
+
+          <div className="w-full md:w-1/2 flex flex-col items-start md:items-start text-left mt-8 md:mt-0">
+            <div className="text-green-300 text-lg font-bold">About me</div>
+            <h1 className="text-3xl md:text-4xl font-bold text-white mt-4">
+              I’m a passionate software developer looking for my first
+              international opportunity
+            </h1>
+            <p className="text-gray-400 mt-4">
+              Beyond coding, I'm a coffee enthusiast, a cat lover, and a
+              self-taught artist who enjoys spending my free time doodling. I am
+              currently seeking opportunities to bring my skills and enthusiasm
+              to a tech company in the United States or Europe and am excited
+              about the prospect of relocating to pursue new challenges.
+            </p>
+
+            <a
+              href="/resume"
+              className="inline-block bg-purple-500 text-white py-2 px-4 rounded mt-6 hover:bg-purple-600 transition-colors"
+            >
+              My resume
+            </a>
+          </div>
+        </div>
+      </section>
 
       {/* Section Featured Projects */}
       <section
         id="projects"
-        className="w-full p-10 bg-secondary-foreground text-white h-screen items-center justify-center flex flex-col gap-10"
+        className="w-full p-10  h-screen items-center justify-center flex flex-col gap-10"
       >
         <h2 className="text-3xl font-bold mb-4 text-center">
           Projects Built with React & Tailwind
@@ -220,18 +238,25 @@ const Home = () => {
       </section>
 
       {/* Section Key Skills */}
-      <section className="w-full p-10 bg-gray-100 flex flex-col items-center justify-center h-screen">
-        <h2 className="text-3xl font-bold mb-4 text-center">
+      <section className="w-full p-10 bg-gray-900 flex flex-col items-center justify-center h-screen">
+        <h2 className="text-3xl font-bold mb-4 text-center text-white mb-16">
           Key Skills & Technologies
         </h2>
-        <ul className="list-disc list-inside max-w-md mx-auto">
-          <li>React</li>
-          <li>Tailwind CSS</li>
-          <li>JavaScript (ES6+)</li>
-          <li>HTML5 & CSS3</li>
-          <li>TypeScript</li>
-          <li>API Integration</li>
-        </ul>
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-6">
+          {skills.map((skill, index) => (
+            <motion.div
+              key={index}
+              className="bg-gray-800 text-white p-6 rounded-lg flex items-center justify-center flex-col shadow-lg hover:shadow-xl hover:bg-gray-700 transition duration-300 ease-in-out"
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+              whileHover={{ scale: 1.1 }}
+            >
+              <span className="text-4xl mb-2">{skill.icon}</span>
+              <h3 className="text-lg font-semibold">{skill.name}</h3>
+            </motion.div>
+          ))}
+        </div>
       </section>
 
       {/* Contact Section */}
